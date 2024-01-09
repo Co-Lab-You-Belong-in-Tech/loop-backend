@@ -4,7 +4,7 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 import dotenv from "dotenv";
 import pool from "../database/db.js";
-
+ 
 dotenv.config();
 
 const getProfile = (profile) => {
