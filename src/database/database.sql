@@ -26,7 +26,7 @@ CREATE TABLE user_profiles (
     avatar_url TEXT
 );
 --add Task
-CREATE TABLE add_task (
+CREATE TABLE task (
     task_id SERIAL PRIMARY KEY,
     task_title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -35,4 +35,4 @@ CREATE TABLE add_task (
     category_type VARCHAR(20) CHECK (category_type IN ('Health', 'Household', 'Childcare', 'Errands', 'Hobby')),
     new_category VARCHAR(50),
     task_priority VARCHAR(20) CHECK (task_priority IN ('High', 'Medium', 'Low'))
-)
+);

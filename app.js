@@ -13,6 +13,7 @@ import pgSession from "connect-pg-simple";
 import {dirname, join} from "path"
 import { fileURLToPath } from "url"
 import {router as authRoute} from "./src/routes/registerRoute.js"
+import {router as taskRoute} from "./src/routes/taskRoute.js"
 import { notFound } from "./src/errors/notFoundError.js"
 import { errorHandler } from "./src/errors/errorHandler.js"
 import pool from "./src/database/db.js"
@@ -45,6 +46,7 @@ const port = /*process.env.PORT) ||)*/ 5000
 app.use(cookieParser())
 
 app.use("/api/register", authRoute)
+app.use("/api/task", taskRoute)
 
 
 
