@@ -29,7 +29,7 @@ CREATE TABLE user_profiles (
 CREATE TABLE task (
     task_id SERIAL PRIMARY KEY,
     task_title VARCHAR(255) NOT NULL,
-    description TEXT,
+    task_desc TEXT,
     estimated_time INTERVAL CHECK (estimated_time IN ('5 minutes', '15 minutes', '30 minutes', '45 minutes', '1 hour')),
     category_color VARCHAR(20) CHECK (category_color IN ('Blue', 'Green', 'Orange', 'Purple', 'Red')),
     category_type VARCHAR(20) CHECK (category_type IN ('Health', 'Household', 'Childcare', 'Errands', 'Hobby')),
