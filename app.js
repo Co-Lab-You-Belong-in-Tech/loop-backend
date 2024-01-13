@@ -21,7 +21,7 @@ const _dirname  = dirname(fileURLToPath(import.meta.url))
 app.use(express.json())
 const corsOptions = {
     Credential: true, 
-    origin: process.env.CLIENT_URL || '*',
+    origin: /*process.env.CLIENT_URL || */'*',
     methods:"GET,POST,PUT,DELETE"
     }
 app.use(cors(corsOptions))

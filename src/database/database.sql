@@ -26,6 +26,17 @@ CREATE TABLE user_profiles (
     avatar_url TEXT
 );
 --add Task
+-- CREATE TABLE task (
+--     task_id SERIAL PRIMARY KEY,
+--     task_title VARCHAR(255) NOT NULL,
+--     task_desc TEXT,
+--     estimated_time INTERVAL CHECK (estimated_time IN ('5 minutes', '15 minutes', '30 minutes', '45 minutes', '1 hour')),
+--     category_color VARCHAR(20) CHECK (category_color IN ('Blue', 'Green', 'Orange', 'Purple', 'Red')),
+--     category_type VARCHAR(20) CHECK (category_type IN ('Health', 'Household', 'Childcare', 'Errands', 'Hobby')),
+--     new_category VARCHAR(50),
+--     task_priority VARCHAR(20) CHECK (task_priority IN ('High', 'Medium', 'Low'))
+-- );
+
 CREATE TABLE task (
     task_id SERIAL PRIMARY KEY,
     task_title VARCHAR(255) NOT NULL,
@@ -33,6 +44,9 @@ CREATE TABLE task (
     estimated_time INTERVAL CHECK (estimated_time IN ('5 minutes', '15 minutes', '30 minutes', '45 minutes', '1 hour')),
     category_color VARCHAR(20) CHECK (category_color IN ('Blue', 'Green', 'Orange', 'Purple', 'Red')),
     category_type VARCHAR(20) CHECK (category_type IN ('Health', 'Household', 'Childcare', 'Errands', 'Hobby')),
-    new_category VARCHAR(50),
+    new_category VARCHAR(50) CHECK (
+        (category_type IS NULL AND new_category IS NOT NULL) OR
+        (category_type IS NOT NULL AND new_category IS NULL)
+    ),
     task_priority VARCHAR(20) CHECK (task_priority IN ('High', 'Medium', 'Low'))
 );
