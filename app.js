@@ -20,9 +20,10 @@ import pool from "./src/database/db.js"
 const _dirname  = dirname(fileURLToPath(import.meta.url))
 app.use(express.json())
 const corsOptions = {
-    Credential: true, 
+    credentials: true, 
     origin: /*process.env.CLIENT_URL || */'*',
-    methods:"GET,POST,PUT,DELETE"
+    methods:"GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
     }
 app.use(cors(corsOptions))
 app.use(express.static('public'))
