@@ -50,3 +50,24 @@ CREATE TABLE task (
     ),
     task_priority VARCHAR(20) CHECK (task_priority IN ('High', 'Medium', 'Low'))
 );
+
+CREATE TABLE events (
+    event_id SERIAL PRIMARY KEY,
+    event_title VARCHAR(255) NOT NULL,
+    category_color VARCHAR(20) CHECK (category_color IN ('Blue', 'Green', 'Orange', 'Purple', 'Red')),
+    category_type VARCHAR(20) CHECK (category_type IN ('Health', 'Household', 'Childcare', 'Errands', 'Hobby')),
+      new_category VARCHAR(50) CHECK (
+        (category_type IS NULL AND new_category IS NOT NULL) OR
+        (category_type IS NOT NULL AND new_category IS NULL)
+    ),
+    start_date DATE NOT NULL,
+    end_date DATE,
+    all_day BOOLEAN,
+    start_time TIME,
+    end_time TIME,
+    CONSTRAINT valid_event_time CHECK (
+        (all_day AND start_time IS NULL AND end_time IS NULL) OR
+        (NOT all_day AND start_time IS NOT NULL AND end_time IS NOT NULL)
+    )
+);
+
