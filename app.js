@@ -15,6 +15,7 @@ import { fileURLToPath } from "url"
 import {router as authRoute} from "./src/routes/registerRoute.js"
 import {router as taskRoute} from "./src/routes/taskRoute.js"
 import {router as eventRoute} from "./src/routes/eventRoute.js"
+import {router as habitRoute} from "./src/routes/habitRoute.js"
 import { notFound } from "./src/errors/notFoundError.js"
 import { errorHandler } from "./src/errors/errorHandler.js"
 import pool from "./src/database/db.js"
@@ -50,6 +51,7 @@ app.use(cookieParser())
 app.use("/api/register", authRoute)
 app.use("/api/task", taskRoute)
 app.use("/api/event", eventRoute)
+app.use("/api/habit", habitRoute)
 
 
 
