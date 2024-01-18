@@ -2,47 +2,47 @@ import pool from "../database/db.js"
 import { NotFoundError } from "../errors/customError.js"
 
 const addHabit = async (req,res,next) => {
-    const {event_title,category_color,category_type,new_category,start_date,end_date,all_day,start_time,end_time} = req.body
+    const {habit_title, habit_icon, repeats_on, start_date, reminder_toggle, reminder_time} = req.body
     console.log("body",req.body)
     console.log("query",pool.query)
-    const event = await pool.query('INSERT INTO events (event_title,category_color,category_type,new_category,start_date,end_date,all_day,start_time,end_time) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',[event_title,category_color,category_type,new_category,start_date,end_date,all_day,start_time,end_time])
-    if(!event.rows.length) return next(new NotFoundError("event not added"))
-    res.status(201).json({data:event.rows})
+    const habit = await pool.query('INSERT INTO habits (habit_title, habit_icon, repeats_on, start_date, reminder_toggle, reminder_time) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',[habit_title, habit_icon, repeats_on, start_date, reminder_toggle, reminder_time])
+    if(!habit.rows.length) return next(new NotFoundError("habit not added"))
+    res.status(201).json({data:habit.rows})
 }
 
 const updateHabit = async (req,res,next) => {
-        const {eventId} = req.params
-        const {event_title,category_color,category_type,new_category,start_date,end_date,all_day,start_time,end_time} = req.body
-        const event = await pool.query('UPDATE events SET event_title = $1,category_color = $2,category_type = $3,new_category = $4,start_date = $5,end_date =$6,all_day =$7,start_time =$8,end_time =$9 WHERE event_id = $10 RETURNING *',[event_title,category_color,category_type,new_category,start_date,end_date,all_day,start_time,end_time,eventId])
-        console.log("event",event.rows)
-        if(!event.rows.length) return next(new NotFoundError("Event not updated"))
-        res.status(201).json({data:event.rows})
+        const {habitId} = req.params
+        const {habit_title, habit_icon, repeats_on, start_date, reminder_toggle, reminder_time} = req.body
+        const habit = await pool.query('UPDATE events SET habit_title = $1,habit_icon = $2,repeats_on = $3,start_date = $4,reminder_toggle = $5,reminder_time =$6 WHERE habit_id = $7 RETURNING *',[habit_title, habit_icon, repeats_on, start_date, reminder_toggle, reminder_time,habitId])
+        console.log("event",habit.rows)
+        if(!habit.rows.length) return next(new NotFoundError("Habit not updated"))
+        res.status(201).json({data:habit.rows})
 }
 
 const getAllHabit = async (req,res,next) => {
-    const event = await pool.query("SELECT * FROM events")
-    if(!event.rows.length) return next(new NotFoundError("There are no event"))
-    res.status(200).json({data:event.rows})
+    const habit = await pool.query("SELECT * FROM habits")
+    if(!habit.rows.length) return next(new NotFoundError("There are no event"))
+    res.status(200).json({data:habit.rows})
 }
 const getHabit  = async (req,res,next) => {
-    const {eventId} = req.params
-    const event = await pool.query('SELECT * FROM events WHERE event_id = $1',[eventId])
-    console.log("event",event.rows)
-    if(!event.rows.length) return next(new NotFoundError("There is no event"))
-    res.status(200).json({data:event.rows})
+    const {habitId} = req.params
+    const habit = await pool.query('SELECT * FROM habits WHERE habit_id = $1',[habitId])
+    console.log("event",habit.rows)
+    if(!habit.rows.length) return next(new NotFoundError("There is no habit"))
+    res.status(200).json({data:habit.rows})
 }
 
 const deleteHabit =  async (req,res,next) => {
-    const {eventId} = req.params
-    const event = await pool.query('DELETE FROM events WHERE event_id = $1',[eventId])
-    if(!event.rowCount === 0) return next(new NotFoundError("There is no task"))
-    res.status(200).json({data:`Event with id:${event} has been deleted`})
+    const {habitId} = req.params
+    const habit = await pool.query('DELETE FROM habits WHERE habit_id = $1',[habitId])
+    if(!habit.rowCount === 0) return next(new NotFoundError("There is no habit"))
+    res.status(200).json({data:`Habit with id:${event} has been deleted`})
 }
 
 const deleteAllHabit =  async (req,res,next) => {
-    const event = await pool.query('DELETE FROM events')
-    if(!event.rowCount === 0) return next(new NotFoundError("There is no event"))
-    res.status(200).json({data:`events have been deleted`})
+    const habit = await pool.query('DELETE FROM habits')
+    if(!habit.rowCount === 0) return next(new NotFoundError("There is no habit"))
+    res.status(200).json({data:`Habits have been deleted`})
 }
 
 export default{

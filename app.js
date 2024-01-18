@@ -54,7 +54,6 @@ app.use("/api/event", eventRoute)
 app.use("/api/habit", habitRoute)
 
 
-
 app.use(notFound)
 app.use(errorHandler)
 const start = async () => {
