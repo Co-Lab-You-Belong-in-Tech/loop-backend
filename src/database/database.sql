@@ -73,3 +73,10 @@ CREATE TABLE habits (
         (NOT reminder_toggle AND reminder_time IS NULL)
     )
 );
+
+CREATE TABLE todos (
+    todo_id SERIAL PRIMARY KEY,
+    todo_title VARCHAR(255) NOT NULL,
+    task_priority VARCHAR(20) CHECK (task_priority IN ('High', 'Medium', 'Low')),
+    notes TEXT,
+);
