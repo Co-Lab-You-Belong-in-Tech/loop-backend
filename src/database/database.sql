@@ -79,4 +79,5 @@ CREATE TABLE todos (
     todo_title VARCHAR(255) NOT NULL,
     task_priority VARCHAR(20) CHECK (task_priority IN ('High', 'Medium', 'Low')),
     notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
