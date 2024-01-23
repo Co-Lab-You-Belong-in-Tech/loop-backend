@@ -23,7 +23,7 @@ import pool from "./src/database/db.js"
 const _dirname  = dirname(fileURLToPath(import.meta.url))
 app.use(express.json())
 const corsOptions = {
-    origin:process.env.CLIENT_URL, 
+    origin: '*', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
     credentials: true
     }
