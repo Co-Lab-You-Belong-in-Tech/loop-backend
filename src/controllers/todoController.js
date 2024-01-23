@@ -26,10 +26,10 @@ const getAllTodo = async (req,res,next) => {
 }
 const getTodo  = async (req,res,next) => {
     const {todoId} = req.params
-    const event = await pool.query('SELECT * FROM todos WHERE event_id = $1',[eventId])
-    console.log("event",event.rows)
-    if(!event.rows.length) return next(new NotFoundError("There is no event"))
-    res.status(200).json({data:event.rows})
+    const todo = await pool.query('SELECT * FROM todos WHERE event_id = $1',[todoId])
+    console.log("event",todo.rows)
+    if(!todo.rows.length) return next(new NotFoundError("There is no todo"))
+    res.status(200).json({data:todo.rows})
 }
 
 const deleteTodo =  async (req,res,next) => {
