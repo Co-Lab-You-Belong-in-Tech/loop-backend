@@ -26,7 +26,7 @@ const getAllTodo = async (req,res,next) => {
 }
 const getTodo  = async (req,res,next) => {
     const {todoId} = req.params
-    const todo = await pool.query('SELECT * FROM todos WHERE event_id = $1',[todoId])
+    const todo = await pool.query('SELECT * FROM todos WHERE todo_id = $1',[todoId])
     console.log("event",todo.rows)
     if(!todo.rows.length) return next(new NotFoundError("There is no todo"))
     res.status(200).json({data:todo.rows})
@@ -34,13 +34,13 @@ const getTodo  = async (req,res,next) => {
 
 const deleteTodo =  async (req,res,next) => {
     const {todoId} = req.params
-    const todo = await pool.query('DELETE FROM todos WHERE event_id = $1',[todoId])
-    if(!todo.rowCount === 0) return next(new NotFoundError("There is no task"))
+    const todo = await pool.query('DELETE FROM todos WHERE todo_id = $1',[todoId])
+    if(!todo.rowCount === 0) return next(new NotFoundError("There is no todo"))
     res.status(200).json({data:`Todo with id:${todo} has been deleted`})
 }
 
 const deleteAllTodo =  async (req,res,next) => {
-    const todo = await pool.query('DELETE FROM events')
+    const todo = await pool.query('DELETE FROM todos')
     if(!todo.rowCount === 0) return next(new NotFoundError("There is no todo"))
     res.status(200).json({data:`todos have been deleted`})
 }
